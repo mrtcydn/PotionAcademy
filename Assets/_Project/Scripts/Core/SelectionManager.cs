@@ -4,7 +4,12 @@ using UnityEngine.InputSystem;
 public class SelectionManager : MonoBehaviour
 {
     private Bottle selectedBottle;
+    private Camera mainCamera;
 
+    private void Awake()
+    {
+        mainCamera = Camera.main;
+    }
     private void Update()
     {
         if(Mouse.current.leftButton.wasPressedThisFrame)
@@ -16,7 +21,7 @@ public class SelectionManager : MonoBehaviour
     private void HandleClick()
     {
         Vector2 screenPosition = Mouse.current.position.ReadValue();
-        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(screenPosition.x,screenPosition.y,Camera.main.nearClipPlane));
+        Vector3 worldPosition = mainCamera.ScreenToWorldPoint(new Vector3(screenPosition.x,screenPosition.y, mainCamera.nearClipPlane));
 
         Collider2D hit = Physics2D.OverlapPoint(worldPosition);
 
@@ -38,9 +43,35 @@ public class SelectionManager : MonoBehaviour
         }
         else
         {
-            Debug.Log($"Hedef seçildi: {clickedBottle.name} (transfer mantığı Hafta 4'te gelecek)");
+            TryTransfer(selectedBottle, clickedBottle);
             selectedBottle.SetSelected(false);
             selectedBottle = null;
         }
+    }
+
+    private void TryTransfer(Bottle source, Bottle target)
+    {
+        if (source.IsEmpty)
+        {
+            Debug.Log("Kaynak şişe boş");
+            return;
+        }
+
+        if (target.IsFull)
+        {
+            Debug.Log("Hedef dolu");
+            return;
+        }
+
+        if (!target.IsEmpty && target.TopColor != source.TopColor)
+        {
+            Debug.Log("Renkler uyuşmuyor");
+            return;
+        }
+
+        Color movingColor = source.TopColor;
+        target.AddLayer(movingColor);
+        source.RemoveTopLayer();
+        Debug.Log("Transfer başarılı.");
     }
 }
