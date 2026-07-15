@@ -139,10 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bottle
   capacity: 4
-  layers:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0, g: 0.20608044, b: 1, a: 1}
-  - {r: 0.030538857, g: 1, b: 1, a: 1}
+  layers: []
   segmentPrefab: {fileID: 4549451213111161650, guid: 01e09fc979c9f6a48a338ac40dcfe459, type: 3}
   layersContainer: {fileID: 3304629853353472945}
   segmentHeight: 0.25

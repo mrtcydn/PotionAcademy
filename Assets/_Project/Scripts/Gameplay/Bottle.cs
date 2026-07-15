@@ -28,6 +28,20 @@ public class Bottle : MonoBehaviour
     public bool IsEmpty => layers.Count == 0;
     public bool IsFull => layers.Count >= capacity;
     public Color TopColor => layers[layers.Count - 1]; 
+    public bool IsComplete
+    {
+        get
+        {
+            if (IsEmpty) return true;
+            if (!IsFull) return false;
+            Color bottomColor = layers[0];
+            for (int i = 1; i < layers.Count; i++)
+            {
+                if (layers[i] != bottomColor) return false;
+            }
+            return true;
+        }
+    }
 
     public void AddLayer(Color color)
     {
@@ -35,6 +49,12 @@ public class Bottle : MonoBehaviour
         RefreshVisual();
     }
 
+    public void LoadLayers(List<Color> newLayers)
+    {
+        layers.Clear();
+        layers.AddRange(newLayers);
+        RefreshVisual();
+    }
 
     public void SetSelected(bool isSelected)
     {

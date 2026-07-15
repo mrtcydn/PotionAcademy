@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,6 +6,8 @@ public class SelectionManager : MonoBehaviour
 {
     private Bottle selectedBottle;
     private Camera mainCamera;
+
+    [SerializeField] private LevelManager levelManager;
 
     private void Awake()
     {
@@ -73,5 +76,7 @@ public class SelectionManager : MonoBehaviour
         target.AddLayer(movingColor);
         source.RemoveTopLayer();
         Debug.Log("Transfer successful.");
+
+        levelManager.CheckWin();
     }
 }
