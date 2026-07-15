@@ -5,10 +5,10 @@ public class Bottle : MonoBehaviour
 {
     [SerializeField] private int capacity = 4;
 
-    [Header("Katmanlar")]
+    [Header("Layers")]
     [SerializeField] private List<Color> layers = new List<Color>();
 
-    [Header("Görsel")]
+    [Header("Visual")]
     [SerializeField] private SpriteRenderer segmentPrefab;
     [SerializeField] private Transform layersContainer;
     [SerializeField] private float segmentHeight = 0.25f;
@@ -51,11 +51,11 @@ public class Bottle : MonoBehaviour
     {
         if (layersContainer == null || segmentPrefab == null)
         {
-            Debug.LogError($"{name}: Segment Prefab veya Layers Container atanmamış!", this);
+            Debug.LogError($"{name}: Segment Prefab or Layers Container is not assigned!", this);
             return;
         }
 
-        // Eski segmentleri temizle
+        // clear old segments
         for (int i = layersContainer.childCount - 1; i >= 0; i--)
         {
             Destroy(layersContainer.GetChild(i).gameObject);

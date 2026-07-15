@@ -53,25 +53,25 @@ public class SelectionManager : MonoBehaviour
     {
         if (source.IsEmpty)
         {
-            Debug.Log("Kaynak şişe boş");
+            Debug.Log("Source bottle is empty");
             return;
         }
 
         if (target.IsFull)
         {
-            Debug.Log("Hedef dolu");
+            Debug.Log("Target is full");
             return;
         }
 
         if (!target.IsEmpty && target.TopColor != source.TopColor)
         {
-            Debug.Log("Renkler uyuşmuyor");
+            Debug.Log("Colors don't match");
             return;
         }
 
         Color movingColor = source.TopColor;
         target.AddLayer(movingColor);
         source.RemoveTopLayer();
-        Debug.Log("Transfer başarılı.");
+        Debug.Log("Transfer successful.");
     }
 }
