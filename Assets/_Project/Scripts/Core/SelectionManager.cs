@@ -23,6 +23,8 @@ public class SelectionManager : MonoBehaviour
 
     private void HandleClick()
     {
+        if (levelManager.IsLevelComplete) return;
+
         Vector2 screenPosition = Mouse.current.position.ReadValue();
         Vector3 worldPosition = mainCamera.ScreenToWorldPoint(new Vector3(screenPosition.x,screenPosition.y, mainCamera.nearClipPlane));
 

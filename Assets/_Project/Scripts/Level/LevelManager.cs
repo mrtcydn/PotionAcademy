@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -5,6 +6,9 @@ public class LevelManager : MonoBehaviour
 {
     [SerializeField] private LevelData currentLevel;
     [SerializeField] private Bottle[] bottles;
+
+    public event Action LevelCompleted;
+    public bool IsLevelComplete { get; private set; }
 
     private void Start()
     {
@@ -44,6 +48,7 @@ public class LevelManager : MonoBehaviour
             }
         }
 
-        Debug.Log("Level Complete!");
+        IsLevelComplete = true;
+        LevelCompleted?.Invoke();
     }
 }
